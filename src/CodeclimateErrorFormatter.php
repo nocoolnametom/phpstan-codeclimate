@@ -23,7 +23,11 @@ class CodeclimateErrorFormatter implements ErrorFormatter
         'description' => $fileSpecificError->getMessage(),
         'categories' => ['Style'],
         'location' => [
-          'path' => $fileSpecificError->getFile(),
+          'path' => str_replace(
+            rtrim($analysisResult->getCurrentDirectory(), '/') . '/',
+            '',
+            $fileSpecificError->getFile()
+          ),
           'lines' => [
             'begin' => $fileSpecificError->getLine(),
           ],
